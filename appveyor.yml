@@ -1,0 +1,9 @@
+version: 1.9.12.{build}
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+before_build:
+- cmd: dotnet restore
+build:
+  publish_core_console: true
+  verbosity: minimal

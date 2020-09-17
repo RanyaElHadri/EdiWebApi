@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Assembly">
+    <Description>Edi.Net Class Library</Description>
+    <Copyright>Copyright (c) 2015 Indice</Copyright>
+    <AssemblyTitle>Edi.Net</AssemblyTitle>
+    <VersionPrefix>1.9.12</VersionPrefix>
+    <!--<VersionSuffix>beta1</VersionSuffix>-->
+    <Authors>c.leftheris</Authors>
+    <TargetFrameworks>net40;net45;netstandard1.0;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <AssemblyName>indice.Edi</AssemblyName>
+    <AssemblyTitle>Edi.Net</AssemblyTitle>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Label="Package">
+    <PackageId>indice.Edi</PackageId>
+    <PackageTags>EDI;EDIFact;Tradacoms;X12;Serializer;Parser</PackageTags>
+    <PackageReleaseNotes>
+- Support deserializing message fragment without interchange #137
+- deserialize Functional group headers and trailers into a separate class #138
+- Revisited Element List deserialization and serialization #121
+- Fixed paths with wildcard fragments (segment and element) now serialize fine.
+- Fixed writer serializing boolean values #141.
+- Fixed EdiSerializer bug when using Serialize overload that passes a plain `TextWriter` the internal EdiTextWriter was never closed thus not autocompleteing/terminating the current active structure #142.
+- Fixed EdiReader when empty segment was found without segment name delimiter #152.
+- Introduced new `SuppressBadEscapeSequenceErrors` option on the serializer. it is used to suppress the exception error thrown when a malformed escape sequence is encountered #157.
+- Rolledback v1.9.10 `EscapeCharacters` change #160.
+- Introduced new `EscapeDecimalMarkInText`. It is used by the EdiTextWriter to escape the decimal mark character inside text values #160.
+    </PackageReleaseNotes>
+    <PackageIcon>icon-256.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/indice-co/EDI.Net</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/indice-co/EDI.Net</RepositoryUrl>
+    <Company>Indice</Company>
+    <Product>Edi.Net</Product>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <!-- including PDB files in NuGet for source link because symbolsource.org does not support portable PDBs -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net45'">
+    <DefineConstants>$(DefineConstants);NET45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net40'">
+    <AssemblyTitle>Json.NET .NET 4.0</AssemblyTitle>
+    <DefineConstants>$(DefineConstants);net40</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.0'">
+    <AssemblyTitle>Edi.Net .NET Standard 1.0</AssemblyTitle>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <DefineConstants>$(DefineConstants);NETSTANDARD10;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <AssemblyTitle>Edi.Net .NET Standard 1.3</AssemblyTitle>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+    <DefineConstants>$(DefineConstants);NETSTANDARD13</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <AssemblyTitle>Edi.Net .NET Standard 2.0</AssemblyTitle>
+    <DefineConstants>$(DefineConstants);NETSTANDARD20</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\design\icon-256.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.0' OR '$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
+    <PackageReference Include="NETStandard.Library" Version="1.6.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.1.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="System.Runtime.Numerics" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Runtime.Numerics" Version="4.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
+  </ItemGroup>
+</Project>
